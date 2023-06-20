@@ -1,11 +1,12 @@
 package warriors;
 
+import armors.Armor;
 import weapons.Weapon;
 import weapons.rangedWeapon.Ranged;
 
-public class Archer extends Warrior<Ranged> {
-    public Archer(String name, int healthPoint, Ranged weapon) {
-        super(name, healthPoint, weapon);
+public class Archer extends Warrior<Ranged, Armor> {
+    public Archer(String name, int healthPoint, Ranged weapon, Armor armor) {
+        super(name, healthPoint, weapon, armor);
     }
 
     public int distance() {

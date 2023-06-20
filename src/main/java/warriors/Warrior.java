@@ -1,18 +1,21 @@
 package warriors;
 
+import armors.Armor;
 import weapons.Weapon;
 
 import java.util.Random;
 
-public abstract class Warrior<W extends Weapon> {
+public abstract class Warrior<W extends Weapon, A extends Armor> {
     private String name;
     private int healthPoint;
     private W weapon;
+    private A armor;
 
-    public Warrior(String name, int healthPoint, W weapon) {
+    public Warrior(String name, int healthPoint, W weapon, A armor) {
         this.name = name;
         this.healthPoint = healthPoint;
         this.weapon = weapon;
+        this.armor = armor;
     }
 
     public String getName() {
@@ -21,6 +24,10 @@ public abstract class Warrior<W extends Weapon> {
 
     public W getWeapon() {
         return weapon;
+    }
+
+    public Armor getArmor() {
+        return armor;
     }
 
     public int getHealthPoint() {
@@ -35,12 +42,18 @@ public abstract class Warrior<W extends Weapon> {
         this.weapon = weapon;
     }
 
+    public void setArmor(A armor) {
+        this.armor = armor;
+    }
+
     public int hit() {
         Random rnd = new Random();
         return rnd.nextInt(0, weapon.damage() + 1);
     }
 
     public void reduceHealth(int damage) {
+        int protect = armor.protect();
+        damage -= protect;
         healthPoint -= damage;
         if (healthPoint < 0) {
             healthPoint = 0;
@@ -49,6 +62,6 @@ public abstract class Warrior<W extends Weapon> {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Weapon: %s, HealthPoint: %d", name, weapon, healthPoint);
+        return String.format("Name: %s, Weapon: %s, Armor: %s, HealthPoint: %d", name, weapon, armor, healthPoint);
     }
 }

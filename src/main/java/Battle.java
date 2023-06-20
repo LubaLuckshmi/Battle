@@ -1,24 +1,34 @@
+import armors.Armor;
 import warriors.Warrior;
 import weapons.Weapon;
 
-public class Battle<w1 extends Weapon, w2 extends Weapon> {
-    private Warrior <w1> w1;
-    private Warrior<w2> w2;
+public class Battle {
+    private Warrior w1;
+    private Warrior w2;
 
-    public Battle(Warrior <w1> w1, Warrior<w2> w2){
+    public Battle(Warrior w1, Warrior w2){
         this.w1 = w1;
         this.w2 = w2;
     }
     public void fight(){
         while (w1.getHealthPoint() > 0 && w2.getHealthPoint() > 0) {
+            String name1 = w1.getName();
+            String name2 = w2.getName();
             int damage1 = w1.hit();
-            System.out.println("first hit second: " + damage1);
+            System.out.printf("%s hit %s : %d ---> ", name1, name2, damage1);
             w2.reduceHealth(damage1);
+            System.out.printf("%s health - %d\n", name2, w2.getHealthPoint());
             int damage2 = w2.hit();
-            System.out.println("second hit first: " + damage2);
+            if (isDead(w2)) {
+                continue;
+            }
+            System.out.printf("%s hit %s : %d ---> ", name2, name1, damage2);
             w1.reduceHealth(damage2);
-            System.out.println(w1);
-            System.out.println(w2);
+            System.out.printf("%s health - %d\n", name1, w1.getHealthPoint());
         }
     }
+    private boolean isDead(Warrior w) {
+        return w.getHealthPoint() <= 0;
+    }
+
 }

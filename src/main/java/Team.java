@@ -47,6 +47,19 @@ public class Team<T extends Warrior> implements Iterable<T> {
         }
         return teamAttack;
     }
+    public int getMinTeamProtect() {
+        int minTeamProtect= Integer.MAX_VALUE;
+        for (T t : this) {
+            int currentProtect = 0;
+            if (t.getArmor() != null) {
+                currentProtect = t.getArmor().protect();
+            }
+            if (currentProtect < minTeamProtect) {
+                minTeamProtect = currentProtect;
+            }
+        }
+        return minTeamProtect;
+    }
 
     @Override
     public String toString() {
@@ -57,6 +70,7 @@ public class Team<T extends Warrior> implements Iterable<T> {
         builder.append(String.format("TeamAttack: %d, ", getTeamAttack()));
         builder.append(String.format("TeamHealth: %d,  ", getTeamHealth()));
         builder.append(String.format("TeamRange: %d ", maxAttackDistance()));
+        builder.append(String.format("TeamProtect: %d ", getMinTeamProtect()));
         return builder.toString();
     }
 

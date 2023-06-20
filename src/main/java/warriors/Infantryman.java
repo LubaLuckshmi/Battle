@@ -1,11 +1,12 @@
 package warriors;
 
+import armors.Armor;
 import weapons.Weapon;
 import weapons.meleeWeapon.Melee;
 
-public class Infantryman extends Warrior<Melee>{
-    public Infantryman(String name, int healthPoint, Melee weapon) {
-        super(name, healthPoint, weapon);
+public class Infantryman extends Warrior<Melee, Armor>{
+    public Infantryman(String name, int healthPoint, Melee weapon, Armor armor) {
+        super(name, healthPoint, weapon, armor);
     }
 
     @Override
